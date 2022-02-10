@@ -2,7 +2,7 @@
 ##  *Password Manager*
 
 ### **Description**
-*This App will let users create Cards, that house all of their information that they choose to put in, such as passwords, usernames, emails ect. All of their sensitive info will be hashed and saved to a database, and will be specific for each user.*
+*This App will let users create Cards, that house all of their information that they choose to put in, such as passwords, usernames, emails ect. All of their sensitive info will be encrypted and saved to a database, and will be specific for each user.*
 
 ### **Pages:**
     - Landing page (info, site name ect)
