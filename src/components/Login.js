@@ -1,6 +1,12 @@
 import React from "react";
+import { useNavigate} from "react-router";
 
 const Login = ()=>{
+  let nav = useNavigate();
+
+  const handleLogin = ()=>{
+    nav('/home')
+  }
 
   return (
     <div className='login-container'>
@@ -13,7 +19,7 @@ const Login = ()=>{
           className='login-pass'
           type='password'
           placeholder='password'/>
-        <button className='login-submit-btn'>Login</button>
+        <button onClick={handleLogin} className='login-submit-btn'>Login</button>
       </form>
     </div>
   )

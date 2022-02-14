@@ -13,7 +13,6 @@ const SignUp = ()=>{
   let nav = useNavigate();
 
   const handleSubmit = (e)=>{
-    const home = '/home';
     e.preventDefault();
     if(confirm !== password){
       alert('Passwords must match.')
@@ -26,7 +25,7 @@ const SignUp = ()=>{
         password,
         confirm
       })
-      nav(home);
+      nav('/home');
     }
   }
 
