@@ -20,3 +20,4 @@
     - Users table with login info
     - Each user will have a table for all of their Cards
     - Every Card will have its own table
+
