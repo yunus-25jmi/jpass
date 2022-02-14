@@ -10,9 +10,7 @@
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    background: rgb(129,7,7);
-    background: linear-gradient(45deg, rgba(129,7,7,1) 1%, rgba(249,55,55,1) 100%);
-    background-size: cover;
+    background: #F5F3F5;
 }
 
 .title-container{
@@ -23,8 +21,17 @@
     align-items: center;
     flex-direction: column;
     background: none;
-    border: solid white 3px;
     border-radius: 25px;
+    background: rgb(129,7,7);
+    background: linear-gradient(45deg, rgba(129,7,7,1) 1%, rgba(249,55,55,1) 100%);
+    background-size: cover;
+    transform:
+            perspective(75em)
+            rotateX(10deg);
+    box-shadow:
+            rgba(22, 31, 39, 0.5) 0px 60px 123px -25px,
+            rgba(19, 26, 32, 0.15) 0px 35px 75px -35px;
+    border: 5px solid #e6e6e6;
 }
 
 .title-btn-container{
@@ -36,7 +43,7 @@
 }
 
 .title{
-    font-size: 750%;
+    font-size: 200px;
     color: white;
     text-align: center;
     font-family: 'Bebas Neue', cursive;
@@ -46,15 +53,92 @@
     width: 150px;
     height: 60px;
     background: none;
-    border: solid 3px white;
+    color: white;
+    font-size: 200%;
+    font-family: 'Rowdies', cursive;
+    border: white 5px solid;
+    transform:
+            perspective(750px)
+            translate3d(0px, 0px, -250px)
+            rotateX(15deg);
+    border-radius: 20px;
+    box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease-in-out transform;
+}
+.login-btn:hover, .sign-up-btn:hover {
+    cursor: pointer;
+    background: white;
+    color: rgb(129,7,7);
+    transform: translate3d(0px, 0px, -250px);
+}
+
+.login-container, .signup-container{
+    background: rgb(129,7,7);
+    background: linear-gradient(45deg, rgba(129,7,7,1) 1%, rgba(249,55,55,1) 100%);
+    background-size: cover;
+    width: 400px;
+    height: 600px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    transform:
+            perspective(75em)
+            rotateX(10deg);
+    box-shadow:
+            rgba(22, 31, 39, 0.5) 0px 60px 123px -25px,
+            rgba(19, 26, 32, 0.15) 0px 35px 75px -35px;
+    border: 5px solid #e6e6e6;
+}
+
+.login-form, .signup-form {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.signup-form {
+    height: 100%;
+}
+
+.login-user, .login-pass, .signup-input{
+    width: 250px;
+    height: 60px;
+    background: none;
+    border: solid 2px white;
     border-radius: 15px;
+    color: white;
+    text-align: center;
+
+}
+.login-user::placeholder, .login-pass::placeholder, .signup-input::placeholder{
     color: white;
     font-size: 200%;
     font-family: 'Rowdies', cursive;
 }
 
-.login-btn:hover, .sign-up-btn:hover {
+.login-submit-btn{
+    width: 150px;
+    height: 60px;
+    background: none;
+    border: solid 3px white;
+    color: white;
+    font-size: 200%;
+    font-family: 'Rowdies', cursive;
+    transform:
+            perspective(750px)
+            translate3d(0px, 0px, -250px)
+            rotateX(15deg);
+    border-radius: 20px;
+    box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease-in-out transform;
+}
+.login-submit-btn:hover{
     cursor: pointer;
     background: white;
     color: rgb(129,7,7);
+    transform: translate3d(0px, 0px, -250px);
 }
