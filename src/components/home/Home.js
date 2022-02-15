@@ -15,7 +15,7 @@ const Home = ()=>{
           <CreateCard />
         </section>
         <CardList setCard={setCard}/>
-      {card && <Card />}
+      {card && <Card setCard={setCard}/>}
     </div>
   )
 }
