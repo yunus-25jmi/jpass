@@ -6,8 +6,8 @@ const Card = ()=>{
 
   return (
     <div className='card-page'>
-      <FontAwesomeIcon className='card-exit' icon={faCircleXmark} />
       <div className='card'>
+        <FontAwesomeIcon className='card-exit' icon={faCircleXmark} />
         <h1 className='card-name card-info'>Site Name</h1>
         <h2 className='card-username card-info'>User name</h2>
         <h2 className='card-pass card-info'>*********</h2>

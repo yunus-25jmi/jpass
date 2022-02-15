@@ -20,7 +20,6 @@ html {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: none;
     border-radius: 25px;
     background: rgb(129,7,7);
     background: linear-gradient(45deg, rgba(129,7,7,1) 1%, rgba(249,55,55,1) 100%);
