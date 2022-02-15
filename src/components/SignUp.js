@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate} from "react-router";
+import axios from "axios";
 
 const SignUp = ()=>{
   const [firstName, setFirstName] = useState('')
@@ -10,23 +11,27 @@ const SignUp = ()=>{
   const [confirm, setconfirm] = useState('')
   const [user, setUser] = useState(null)
 
-  let nav = useNavigate();
+  // let nav = useNavigate();
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e)=> {
     e.preventDefault();
     if(confirm !== password){
       alert('Passwords must match.')
     } else {
       setUser({
-        firstName,
-        lastName,
-        email,
-        username,
-        password,
-        confirm
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        username: username,
+        password: password
       })
-      nav('/home');
+      axios.post('http://localhost:5432/api/users', user)
+        .then(res => {
+          console.log(res.data)
+        }).catch(err => console.log(err))
     }
+    // nav('/home');
+    // console.log(user)
   }
 
   const handleFirstname = (e)=> setFirstName(e.target.value);
@@ -34,7 +39,7 @@ const SignUp = ()=>{
   const handleEmail = (e)=> setEmail(e.target.value);
   const handleUsername = (e)=> setUsername(e.target.value);
   const handlePassword = (e)=> setPassword(e.target.value);
-  const handleConfirm = (e)=> {setconfirm(e.target.value)}
+  const handleConfirm = (e)=> setconfirm(e.target.value)
 
   return (
     <div className='signup-container'>
@@ -72,7 +77,6 @@ const SignUp = ()=>{
         <button
           className='login-submit-btn'
           type='submit'
-          onClick={()=>console.log(user)}
         >Sign Up
         </button>
       </form>

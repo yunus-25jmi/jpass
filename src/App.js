@@ -3,9 +3,7 @@ import Landing from "./components/Landing";
 import Home from "./components/home/Home";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
-
 function App() {
-
 
   return (
     <BrowserRouter>
