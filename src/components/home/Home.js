@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import css from './home.css';
+import CardPreview from "../CardPreview";
 
 const Home = ()=>{
   const [siteName, setSiteName] = useState('')
@@ -52,12 +53,14 @@ const Home = ()=>{
         </div>
       </section>
       <section className='home-cards'>
-        <div className='home-cards-header'>
-          <h1 className='home-cards-title'>Cards</h1>
-        </div>
-        <h2>card one</h2>
-        <h2>card two</h2>
-        <h2>card three...</h2>
+        <CardPreview name={'google'}/>
+        <CardPreview name={'robinhood'}/>
+        <CardPreview name={'linkedin'}/>
+        <CardPreview name={'docs'}/>
+        <CardPreview name={'github'}/>
+        <CardPreview name={'email'}/>
+        <CardPreview name={'CC'}/>
+        <CardPreview name={'youtube'}/>
       </section>
     </div>
   )
