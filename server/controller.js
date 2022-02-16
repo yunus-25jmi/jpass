@@ -13,8 +13,7 @@ const sequelize = new Sequelize(CS,{
 );
 
 module.exports = {
-  addUser: (req, res)=>{
-    const {email, username, password, firstname, lastname} = req.body;
+  seedUsers: (req, res)=>{
     console.log(req.body)
     sequelize.query(
       `CREATE TABLE IF NOT EXISTS users(

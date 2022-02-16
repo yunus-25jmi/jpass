@@ -25,10 +25,7 @@ const SignUp = ()=>{
         username: username,
         password: password
       })
-      axios.post('http://localhost:5432/api/users', user)
-        .then(res => {
-          console.log(res.data)
-        }).catch(err => console.log(err))
+
     }
     // nav('/home');
     // console.log(user)
