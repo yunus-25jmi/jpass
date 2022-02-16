@@ -23,7 +23,9 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "sequelize": "^6.16.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11",
+    "yup-password": "^0.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
