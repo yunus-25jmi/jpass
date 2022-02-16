@@ -22,11 +22,16 @@ const SignUp = ()=>{
     e.preventDefault();
     if(confirm === user.password){
       axios.post(`${URL}/User`, user)
-        .then().catch(err => console.log(err));
+        .then(res =>{
+          console.log(res.data)
+        }).catch(err => {
+        console.log(err.response.data)
+        alert(err.response.data)
+      });
     } else {
       alert("Passwords must match")
     }
-    nav('/home');
+    // nav('/home');
   }
 
   const handleFirstname = (e)=> setUser({...user, firstname: e.target.value});

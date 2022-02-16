@@ -1,6 +1,7 @@
 require('dotenv')
 const {Sequelize} = require("sequelize");
 const {CONNECTION_STRING: CS} = process.env;
+const bcrypt = require('bcrypt');
 const sequelize = new Sequelize(CS,{
     dialect: 'postgres',
     dialectOptions: {
@@ -13,6 +14,7 @@ const sequelize = new Sequelize(CS,{
 );
 
 module.exports = {
+  // Seed file for main database table
   seedUsers: (req, res)=>{
     sequelize.query(
       `CREATE TABLE IF NOT EXISTS users(
@@ -27,19 +29,34 @@ module.exports = {
         res.status(200).send(dbRes[0])
       }).catch(err => console.log(err))
   },
-  addUser: (req, res) =>{
+  // Adding user to main table, creating individual table
+  addUser: async (req, res) =>{
     console.log(req.body)
     const { username, password, email, firstname, lastname } = req.body;
-    sequelize.query(
-      `INSERT INTO users(username, password, email, firstname, lastname)
-            VALUES('${username}', '${password}', '${email}','${firstname}', '${lastname}');
+
+    // hashing the password using bcrypt********
+    const check = await sequelize.query(
+      `SELECT * FROM users WHERE username = '${username}';`
+    ).catch(err => console.log(err))
+    if(check[1].rowCount !== 0){
+      res.status(500).send('Username already exists')
+    }else {
+      const salt = bcrypt.genSaltSync(10);
+      const passHash = bcrypt.hashSync(password, salt);
+      console.log(passHash)
+
+      // Add user into DB after password has been hashed.*******
+      sequelize.query(
+        `INSERT INTO users(username, password, email, firstname, lastname)
+            VALUES('${username}', '${passHash}', '${email}','${firstname}', '${lastname}');
 
             CREATE TABLE IF NOT EXISTS ${username}(
             id SERIAL PRIMARY KEY,
             user_id SERIAL REFERENCES users,
             site_name VARCHAR(50));`)
-      .then(dbRes=>{
-        res.status(200).send(dbRes[0])
-      }).catch(err => console.log(err));
+        .then(dbRes => {
+          res.status(200).send(dbRes[0])
+        }).catch(err => console.log(err));
+    }
   }
 }
