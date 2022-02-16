@@ -1,41 +1,39 @@
 import React, {useState} from "react";
-import { useNavigate} from "react-router";
 import axios from "axios";
+import {useNavigate} from "react-router";
+
+const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirm, setconfirm] = useState('')
-  const [user, setUser] = useState(null)
+  const initalUserState = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    username: '',
+    password: ''
+  }
 
-  // let nav = useNavigate();
+  const [confirm, setconfirm] = useState('')
+  const [user, setUser] = useState(initalUserState)
+
+  let nav = useNavigate();
 
   const handleSubmit = (e)=> {
     e.preventDefault();
-    if(confirm !== password){
-      alert('Passwords must match.')
+    if(confirm === user.password){
+      axios.post(`${URL}/User`, user)
+        .then().catch(err => console.log(err));
     } else {
-      setUser({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        username: username,
-        password: password
-      })
-
+      alert("Passwords must match")
     }
-    // nav('/home');
-    // console.log(user)
+    nav('/home');
   }
 
-  const handleFirstname = (e)=> setFirstName(e.target.value);
-  const handleLastname = (e)=> setLastName(e.target.value);
-  const handleEmail = (e)=> setEmail(e.target.value);
-  const handleUsername = (e)=> setUsername(e.target.value);
-  const handlePassword = (e)=> setPassword(e.target.value);
+  const handleFirstname = (e)=> setUser({...user, firstname: e.target.value});
+  const handleLastname = (e)=> setUser({...user, lastname: e.target.value});
+  const handleEmail = (e)=> setUser({...user, email: e.target.value});
+  const handleUsername = (e)=> setUser({...user, username: e.target.value});
+  const handlePassword = (e)=> setUser({...user, password: e.target.value});;
   const handleConfirm = (e)=> setconfirm(e.target.value)
 
   return (
