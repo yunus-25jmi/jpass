@@ -4,7 +4,7 @@ const WelcomeUser = ()=>{
 
   return (
       <div className='home-welcome'>
-        <h1 className='home-welcome-title'>Welcome user</h1>
+        <h1 className='home-welcome-title'>{localStorage.getItem('username')}</h1>
       </div>
   )
 }

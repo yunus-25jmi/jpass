@@ -18,12 +18,13 @@ const SignUp = ()=>{
 
   let nav = useNavigate();
 
-  const handleSubmit = (e)=> {
+  const handleSubmit = async (e)=> {
     e.preventDefault();
     if(confirm === user.password){
       axios.post(`${URL}/User`, user)
         .then(res =>{
-          console.log(res.data)
+          console.log(res.data[0][0].username)
+          localStorage.setItem('username', res.data[0][0].username)
         }).catch(err => {
         console.log(err.response.data)
         alert(err.response.data)
@@ -31,7 +32,7 @@ const SignUp = ()=>{
     } else {
       alert("Passwords must match")
     }
-    // nav('/home');
+    await nav('/home');
   }
 
   const handleFirstname = (e)=> setUser({...user, firstname: e.target.value});

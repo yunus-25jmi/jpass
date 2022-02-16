@@ -43,7 +43,6 @@ module.exports = {
     }else {
       const salt = bcrypt.genSaltSync(10);
       const passHash = bcrypt.hashSync(password, salt);
-      console.log(passHash)
 
       // Add user into DB after password has been hashed.*******
       sequelize.query(
@@ -53,10 +52,13 @@ module.exports = {
             CREATE TABLE IF NOT EXISTS ${username}(
             id SERIAL PRIMARY KEY,
             user_id SERIAL REFERENCES users,
-            site_name VARCHAR(50));`)
-        .then(dbRes => {
-          res.status(200).send(dbRes[0])
-        }).catch(err => console.log(err));
+            site_name VARCHAR(50));`
+      ).catch(err => console.log(err));
+
+      const userInfo = await sequelize.query(
+        `SELECT username FROM users WHERE username = '${username}'`
+      ).catch(err => console.log(err))
+      res.status(200).send(userInfo);
     }
   }
 }
