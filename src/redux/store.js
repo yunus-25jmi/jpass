@@ -1,5 +1,8 @@
-import { configureStore } from "@testing-library/react";
+import { configureStore } from "@reduxjs/toolkit";
+import changeUserReducer from './changeUser';
 
 export default configureStore({
-  reducer: {}
+  reducer: {
+    changeUser: changeUserReducer
+  }
 })

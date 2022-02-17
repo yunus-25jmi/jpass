@@ -3,20 +3,14 @@ import axios from "axios";
 import {useNavigate} from "react-router";
 import {userSchema} from "../validations/UserValidation";
 import * as yup from "yup";
-
+import {useDispatch, useSelector} from "react-redux";
+import changeUser, {changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/changeUser";
 const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
-  const initalUserState = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    username: '',
-    password: ''
-  }
-
   const [confirm, setConfirm] = useState('')
-  const [user, setUser] = useState(initalUserState)
+  const user = useSelector(state => state.changeUser);
+  const dispatch = useDispatch();
 
   // useNavigate hook for navigating pages from react-router.
   let nav = useNavigate();
@@ -26,6 +20,7 @@ const SignUp = ()=>{
     e.preventDefault();
     const isValid = await userSchema.isValid(user)
     console.log(isValid)
+    console.log(user)
 
     if(isValid){
       if(confirm === user.password){
@@ -45,11 +40,11 @@ const SignUp = ()=>{
   }
 
 
-  const handleFirstname = (e)=> setUser({...user, firstname: e.target.value});
-  const handleLastname = (e)=> setUser({...user, lastname: e.target.value});
-  const handleEmail = (e)=> setUser({...user, email: e.target.value});
-  const handleUsername = (e)=> setUser({...user, username: e.target.value});
-  const handlePassword = (e)=> setUser({...user, password: e.target.value});;
+  const handleFirstname = (e)=> dispatch(changeFirstName(e.target.value));
+  const handleLastname = (e)=> dispatch(changeLastName(e.target.value));
+  const handleEmail = (e)=> dispatch(changeEmail(e.target.value));
+  const handleUsername = (e)=> dispatch(changeUsername(e.target.value));
+  const handlePassword = (e)=> dispatch(changePassword(e.target.value));;
   const handleConfirm = (e)=> setConfirm(e.target.value)
 
   return (
