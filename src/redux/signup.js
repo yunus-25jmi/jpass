@@ -8,9 +8,12 @@ export const counterSlice = createSlice({
   reducers: {
     switchSignup: (state, action)=>{
       state.signUp = !state.signUp;
+    },
+    switchSignupType: (state, action)=>{
+      state.signUp = action.payload;
     }
   }
 })
 
-export const { switchSignup } = counterSlice.actions;
+export const { switchSignup, switchSignupType } = counterSlice.actions;
 export default counterSlice.reducer;

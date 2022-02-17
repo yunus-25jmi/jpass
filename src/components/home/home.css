@@ -179,3 +179,29 @@
     height: 30%;
     text-align: left;
 }
+
+.logout-btn{
+    position: relative;
+    left: 350px;
+    top: -90px;
+    width: 150px;
+    height: 60px;
+    background: #F93737FF;
+    color: white;
+    font-size: 200%;
+    font-family: 'Rowdies', cursive;
+    border: white 5px solid;
+    transform:
+            perspective(750px)
+            translate3d(0px, 0px, -250px)
+            rotateX(15deg);
+    border-radius: 20px;
+    box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease-in-out transform;
+}
+.logout-btn:hover{
+    cursor: pointer;
+    background: white;
+    color: #F93737FF;
+    transform: translate3d(0px, 0px, -250px);
+}

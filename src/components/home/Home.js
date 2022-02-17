@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import WelcomeUser from "./WelcomeUser";
 import CreateCard from "./CreateCard";
 import CardList from "./CardList";
-import css from './home.css'
+import './home.css'
 import Card from "./Card";
 
 const Home = ()=>{
