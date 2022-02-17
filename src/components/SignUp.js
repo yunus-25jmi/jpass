@@ -15,15 +15,6 @@ const SignUp = ()=>{
     password: ''
   }
 
-  const initialValidState = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    username: '',
-    password: ''
-  }
-
-  const [valid, setValid] = useState(initialValidState)
   const [confirm, setConfirm] = useState('')
   const [user, setUser] = useState(initalUserState)
 
@@ -49,9 +40,7 @@ const SignUp = ()=>{
       } else {
         alert("Passwords must match")
       }
-      // await nav('/home');
-    } else {
-
+      await nav('/home');
     }
   }
 
@@ -72,7 +61,7 @@ const SignUp = ()=>{
             className='signup-input'
             type='text'
             placeholder='first name'/>
-          <p className='form-div-p'>{valid.firstname}</p>
+          <p className='form-div-p'>{}</p>
         </div>
         <div className='form-div'>
           <input
@@ -80,7 +69,7 @@ const SignUp = ()=>{
             className='signup-input'
             type='text'
             placeholder='last name'/>
-          <p className='form-div-p'>{valid.lastname}</p>
+          <p className='form-div-p'>{}</p>
         </div>
         <div className='form-div'>
           <input
@@ -88,7 +77,7 @@ const SignUp = ()=>{
             className='signup-input'
             type='email'
             placeholder='email'/>
-          <p className='form-div-p'>{valid.email}</p>
+          <p className='form-div-p'>{}</p>
         </div>
         <div className='form-div'>
           <input
@@ -96,7 +85,7 @@ const SignUp = ()=>{
             type='text'
             className='signup-input'
             placeholder='username'/>
-          <p className='form-div-p'>{valid.username}</p>
+          <p className='form-div-p'>{}</p>
         </div>
         <div className='form-div'>
           <input
