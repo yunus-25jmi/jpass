@@ -1,19 +1,15 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router";
 import {userSchema} from "../validations/UserValidation";
-import * as yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
-import changeUser, {changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/changeUser";
+import {changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/changeUser";
 const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
   const [confirm, setConfirm] = useState('')
   const user = useSelector(state => state.changeUser);
   const dispatch = useDispatch();
-
-  // useNavigate hook for navigating pages from react-router.
-  let nav = useNavigate();
+  const {signUp} = useSelector(state => state.signup)
 
   // main register function, posts an axios call to the database
   const handleSubmit = async (e)=> {
@@ -26,8 +22,7 @@ const SignUp = ()=>{
       if(confirm === user.password){
         axios.post(`${URL}/User`, user)
           .then(res =>{
-            console.log(res.data[0][0].username)
-            localStorage.setItem('username', res.data[0][0].username)
+            console.log(res.data[0])
           }).catch(err => {
           console.log(err.response.data)
           alert(err.response.data)
@@ -35,10 +30,10 @@ const SignUp = ()=>{
       } else {
         alert("Passwords must match")
       }
-      await nav('/home');
+      dispatch(signUp())
+      alert('Account successfully created!')
     }
   }
-
 
   const handleFirstname = (e)=> dispatch(changeFirstName(e.target.value));
   const handleLastname = (e)=> dispatch(changeLastName(e.target.value));
