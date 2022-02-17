@@ -4,9 +4,10 @@ import CreateCard from "./CreateCard";
 import CardList from "./CardList";
 import './home.css'
 import Card from "./Card";
+import { useSelector } from "react-redux";
 
 const Home = ()=>{
-  const [card, setCard] = useState(false)
+  const {hidden} = useSelector(state => state.showCard);
 
   return (
     <div className='home'>
@@ -14,8 +15,8 @@ const Home = ()=>{
           <WelcomeUser />
           <CreateCard />
         </section>
-        <CardList setCard={setCard}/>
-      {card && <Card setCard={setCard}/>}
+        <CardList/>
+      {hidden && <Card />}
     </div>
   )
 }

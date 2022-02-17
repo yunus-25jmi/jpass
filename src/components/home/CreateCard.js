@@ -1,47 +1,52 @@
-import React, {useState} from "react";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {changeSiteUrl, changePassword, changeName, changeUsername, changeNotes} from "../../redux/card";
+
 
 const CreateCard = ()=>{
-  const [siteName, setSiteName] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [siteUrl, setSiteUrl] = useState('')
-  const [notes, setNotes] = useState('')
-  const [input, setInput] = useState(null)
+  const dispatch = useDispatch();
+  const card = useSelector(state => state.card)
 
-  const handleName = (e)=> setSiteName(e.target.value);
-  const handleUsername = (e)=> setUsername(e.target.value);
-  const handlePassword = (e)=> setPassword(e.target.value);
-  const handleNotes = (e)=> setNotes(e.target.value);
-  const handleUrl = (e)=> setSiteUrl(e.target.value);
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    console.log('submit')
+    console.log(card)
+  }
 
   return (
     <div className='create-container'>
       <h1 className='create-card-title'>Create New Card</h1>
-      <form className='create-form'>
+      <form
+        onSubmit={handleSubmit}
+        className='create-form'>
         <input
           className='create-input'
           type='text'
           placeholder='Site Name'
-          onChange={handleName}/>
+          onChange={(e)=>dispatch(changeName(e.target.value))}/>
         <input
           className='create-input'
           type='text'
           placeholder='username'
-          onChange={handleUsername}/>
+          onChange={(e)=>dispatch(changeUsername(e.target.value))}/>
         <input
           className='create-input'
           type='password'
           placeholder='Password'
-          onChange={handlePassword}/>
+          onChange={(e)=>dispatch(changePassword(e.target.value))}/>
         <input
           className='create-input'
           type='text'
-          placeholder='Site Name'
-          onChange={handleUrl}/>
+          placeholder='Site URL'
+          onChange={(e)=>dispatch(changeSiteUrl(e.target.value))}/>
         <textarea
           className='create-input notes'
           placeholder='Notes...'
-          onChange={handleNotes}/>
+          onChange={(e)=>dispatch(changeNotes(e.target.value))}/>
+        <button
+          type='submit'
+          className='create-card-btn'>Submit
+        </button>
       </form>
     </div>
   )

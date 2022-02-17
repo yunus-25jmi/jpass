@@ -1,11 +1,11 @@
 import React from "react";
 import CardPreview from "./CardPreview";
 
-const CardList = ({setCard})=>{
+const CardList = ()=>{
 
   return (
     <section className='home-cards'>
-      <CardPreview setCard={setCard}/>
+      <CardPreview />
     </section>
   )
 }
