@@ -3,6 +3,7 @@ import axios from "axios";
 import {userSchema} from "../validations/UserValidation";
 import {useDispatch, useSelector} from "react-redux";
 import {changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/changeUser";
+import {switchSignup} from "../redux/signup";
 const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
@@ -30,7 +31,7 @@ const SignUp = ()=>{
       } else {
         alert("Passwords must match")
       }
-      dispatch(signUp())
+      dispatch(switchSignup())
       alert('Account successfully created!')
     }
   }

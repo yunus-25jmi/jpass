@@ -60,5 +60,25 @@ module.exports = {
       ).catch(err => console.log(err))
       res.status(200).send(userInfo);
     }
+  },
+  getUser: (req, res)=>{
+    const {username, password} = req.body;
+    sequelize.query(
+      `SELECT * FROM users WHERE username = '${username}'`
+    ).then(dbRes =>{
+      const dbPass = dbRes[0][0].password
+      bcrypt.compare(password, dbPass, function (err, result){
+        console.log(result)
+        res.status(200).send(result)
+      })
+    })
+  },
+  getInfo: (req, res)=>{
+    const {username} = req.body;
+    sequelize.query(
+      `SELECT * FROM users WHERE username = '${username}'`
+    ).then(dbRes =>{
+      res.status(200).send(dbRes[0][0])
+    })
   }
 }
