@@ -3,6 +3,7 @@ import { useNavigate} from "react-router";
 import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
 import {changeUsername, changeLastName, changeFirstName, changeEmail} from "../redux/user";
+import {switchLoginStatus} from "../redux/isLoggedIn";
 
 
 const Login = ()=>{
@@ -35,6 +36,7 @@ const Login = ()=>{
           dispatch(changeLastName(res.data.lastname))
           dispatch(changeUsername(res.data.username))
           dispatch(changeEmail(res.data.email))
+          dispatch(switchLoginStatus(true));
         })
       nav('/home')
     }

@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {switchSignupType} from "../../redux/signup";
 import {switchLoginType} from "../../redux/login";
 import {revert} from '../../redux/user';
+import {switchLoginStatus} from "../../redux/isLoggedIn";
 
 const Logout = ()=>{
   const nav = useNavigate();
@@ -13,6 +14,7 @@ const Logout = ()=>{
     dispatch(switchLoginType(false));
     dispatch(switchSignupType(false));
     dispatch(revert());
+    dispatch(switchLoginStatus(false));
     nav('/')
   }
 
