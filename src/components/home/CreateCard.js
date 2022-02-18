@@ -1,16 +1,26 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeSiteUrl, changePassword, changeName, changeUsername, changeNotes} from "../../redux/card";
-
+import {originalSiteName, changeSiteUrl, changeSitePassword, changeName, changeSiteUsername, changeNotes} from "../../redux/card";
+import axios from "axios";
+const URL = 'http://localhost:5432/api'
 
 const CreateCard = ()=>{
   const dispatch = useDispatch();
   const card = useSelector(state => state.card)
+  const user = useSelector(state => state.user);
+
+  const body = {
+    ...card,
+    ...user
+  }
 
   const handleSubmit = (e)=>{
     e.preventDefault()
-    console.log('submit')
-    console.log(card)
+
+    axios.post(`${URL}/addCard`, body)
+      .then(res =>{
+        console.log(res.data)
+      }).catch(err => console.log(err));
   }
 
   return (
@@ -23,17 +33,20 @@ const CreateCard = ()=>{
           className='create-input'
           type='text'
           placeholder='Site Name'
-          onChange={(e)=>dispatch(changeName(e.target.value))}/>
+          onChange={(e)=>{
+            dispatch(changeName(e.target.value))
+            dispatch(originalSiteName(e.target.value))
+          }}/>
         <input
           className='create-input'
           type='text'
           placeholder='username'
-          onChange={(e)=>dispatch(changeUsername(e.target.value))}/>
+          onChange={(e)=>dispatch(changeSiteUsername(e.target.value))}/>
         <input
           className='create-input'
           type='password'
           placeholder='Password'
-          onChange={(e)=>dispatch(changePassword(e.target.value))}/>
+          onChange={(e)=>dispatch(changeSitePassword(e.target.value))}/>
         <input
           className='create-input'
           type='text'

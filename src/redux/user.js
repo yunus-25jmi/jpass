@@ -6,7 +6,9 @@ export const counterSlice = createSlice({
     firstname: '',
     lastname: '',
     email: '',
-    username: ''
+    username: '',
+    userId: null,
+    password: ''
   },
   reducers: {
     changeFirstName: (state, action) =>{
@@ -25,14 +27,23 @@ export const counterSlice = createSlice({
       state.username = action.payload;
       localStorage.setItem('username', state.username)
     },
+    updateId: (state, action)=>{
+      state.userId = action.payload;
+    },
+    changePassword: (state, action) =>{
+      state.password = action.payload;
+    },
     revert: (state, action)=>{
       state.firstname = '';
       state.lastname = '';
       state.email = '';
       state.username = '';
+    },
+    removePassword: (state, action)=>{
+      state.password = '';
     }
   }
 })
 
-export const { changeFirstName, changeUsername, changeLastName, changeEmail, revert } = counterSlice.actions;
+export const { removePassword, changePassword, updateId, changeFirstName, changeUsername, changeLastName, changeEmail, revert } = counterSlice.actions;
 export default counterSlice.reducer;

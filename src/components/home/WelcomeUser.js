@@ -3,12 +3,12 @@ import {useSelector} from "react-redux";
 import Logout from "./Logout";
 
 const WelcomeUser = ()=>{
-  // const {firstname} = useSelector(state => state.changeUser);
+  const {firstname} = useSelector(state => state.user);
 
   return (
     <div className='welcome'>
       <div className='home-welcome'>
-        <h1 className='home-welcome-title'>{localStorage.getItem('firstname')}</h1>
+        <h1 className='home-welcome-title'>{firstname}</h1>
       </div>
       <Logout />
     </div>

@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import axios from "axios";
 import {userSchema} from "../validations/UserValidation";
 import {useDispatch, useSelector} from "react-redux";
-import {changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/changeUser";
+import {removePassword, changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/user";
 import {switchSignup} from "../redux/signup";
 const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
   const [confirm, setConfirm] = useState('')
-  const user = useSelector(state => state.changeUser);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const {signUp} = useSelector(state => state.signup)
 
@@ -32,6 +32,7 @@ const SignUp = ()=>{
         alert("Passwords must match")
       }
       dispatch(switchSignup())
+      dispatch(removePassword())
       alert('Account successfully created!')
     }
   }

@@ -80,5 +80,40 @@ module.exports = {
     ).then(dbRes =>{
       res.status(200).send(dbRes[0][0])
     })
+  },
+  addCard: async (req, res) =>{
+    const {username, notes, siteName, siteUrl, siteUsername, userId, sitePassword} = req.body;
+
+    await sequelize.query(
+      `SELECT * FROM users WHERE username = '${username}';`
+    ).catch(err => console.log(err))
+
+    await sequelize.query(
+      `INSERT INTO ${username} (user_id, site_name)
+           VALUES('${userId}', '${siteName}');`
+    ).catch(err => console.log(err))
+
+    await sequelize.query(
+      `CREATE TABLE IF NOT EXISTS ${username}${siteName}(
+            id SERIAL PRIMARY KEY,
+            user_id SERIAL REFERENCES users,
+            site_name VARCHAR(75),
+            password VARCHAR(255) NOT NULL,
+            site_username VARCHAR(50),
+            site_url VARCHAR(100),
+            notes VARCHAR(250));`
+    ).catch(err => console.log(err))
+
+    await sequelize.query(
+      `INSERT INTO ${username}${siteName}(user_id, site_name, password, site_username, site_url, notes)
+           VALUES('${userId}', '${siteName}', '${sitePassword}', '${siteUsername}','${siteUrl}', '${notes}');`
+    ).catch(err => console.log(err));
+
+    await sequelize.query(
+      `SELECT * FROM ${username}${siteName}`
+    ).then(dbRes =>{
+      console.log(dbRes[0][0])
+      res.status(200).send(dbRes[0][0])
+    }).catch(err => console.log(err));
   }
 }

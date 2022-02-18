@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useNavigate} from "react-router";
 import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
-import {changeUsername, changeLastName, changeFirstName, changeEmail} from "../redux/user";
+import {changeUsername, changeLastName, changeFirstName, changeEmail, updateId} from "../redux/user";
 import {switchLoginStatus} from "../redux/isLoggedIn";
 
 
@@ -10,6 +10,7 @@ const Login = ()=>{
   const dispatch = useDispatch();
   let nav = useNavigate();
   const URL = 'http://localhost:5432/api'
+  const user = useSelector(state => state.user)
   const [input, setInput] = useState({
     username: '',
     password: ''
@@ -30,13 +31,14 @@ const Login = ()=>{
 
     if(correctInfo === true){
       console.log(correctInfo)
-      axios.post(`${URL}/getInfo`, input)
+      await axios.post(`${URL}/getInfo`, input)
         .then(res =>{
           dispatch(changeFirstName(res.data.firstname))
           dispatch(changeLastName(res.data.lastname))
           dispatch(changeUsername(res.data.username))
           dispatch(changeEmail(res.data.email))
           dispatch(switchLoginStatus(true));
+          dispatch(updateId(res.data.user_id))
         })
       nav('/home')
     }
