@@ -46,30 +46,12 @@ const SignUp = ()=>{
       axios.post(`${URL}/User`, values)
         .then(res =>{
           console.log(res.data)
-        }).catch(err => console.log(err));
+        }).catch(err => {
+          alert(err.response.data)
+        console.log(err)
+      });
     },
   });
-
-  // main register function, posts an axios call to the database
-  const handleSubmit = async (e)=> {
-
-    // if(isValid){
-    //   if(confirm === user.password){
-    //     axios.post(`${URL}/User`, user)
-    //       .then(res =>{
-    //         console.log(res.data[0])
-    //         dispatch(switchSignup())
-    //         dispatch(removePassword())
-    //         alert('Account successfully created!')
-    //       }).catch(err => {
-    //       console.log(err.response.data)
-    //       alert(err.response.data)
-    //     });
-    //   } else {
-    //     alert("Passwords must match")
-    //   }
-    // }
-  }
 
   return (
     <div className='signup-container'>
@@ -120,15 +102,6 @@ const SignUp = ()=>{
             placeholder='password'/>
           <p className='form-div-p'>{formik.errors.password}</p>
         </div>
-        {/*<div className='form-div'>*/}
-        {/*  <input*/}
-        {/*    onChange={formik.handleChange}*/}
-        {/*    className='signup-input'*/}
-        {/*    type='password'*/}
-        {/*    name='confirm'*/}
-        {/*    placeholder='confirm password'/>*/}
-        {/*  <p className='form-div-p'>{}</p>*/}
-        {/*</div>*/}
         <button
           className='login-submit-btn'
           type='submit'
