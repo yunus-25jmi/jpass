@@ -90,7 +90,11 @@ module.exports = {
         const dbPass = dbRes[0][0].password
         bcrypt.compare(password, dbPass, function (err, result){
           if(result){
-            res.status(200).send(result)
+            let body = {
+              result,
+              ...dbRes[0][0]
+            }
+            res.status(200).send(body)
           } else {
             res.status(500).send('Please enter the correct password')
           }
@@ -108,40 +112,47 @@ module.exports = {
       res.status(200).send(dbRes[0][0])
     })
   },
+
+  // ** create card function **
   addCard: async (req, res) =>{
-    const {username, notes, siteName, siteUrl, siteUsername, userId, sitePassword} = req.body;
+    const {username, notes, siteName, siteUrl, siteUsername, sitePassword} = req.body;
 
-    let user = [];
-    await sequelize.query(
-      `SELECT * FROM ${username}`
-    ).then(dbRes=>{
-      user = [...dbRes[0]]
-    }).catch(err => console.log(err));
+    // ** checking custom user table to see if site already exists
+    const checkSite = await sequelize.query(
+      `SELECT * FROM ${username} WHERE site_name = '${siteName}'`
+    ).catch(err => console.log(err))
 
-    if(user.find(site => site.site_name === siteName)){
-      res.status(500).send('Site name already exists')
-    } else {
-      await sequelize.query(
-        `INSERT INTO ${username} (user_id, site_name)
-           VALUES('${userId}', '${siteName}');`
-      ).catch(err => console.log(err))
-
-      await sequelize.query(
-        `CREATE TABLE IF NOT EXISTS ${username}${siteName}(
-            id SERIAL PRIMARY KEY,
-            user_id SERIAL REFERENCES users,
-            site_name VARCHAR(75),
-            password VARCHAR(255) NOT NULL,
-            site_username VARCHAR(50),
-            site_url VARCHAR(100),
-            notes VARCHAR(250));`
-      ).catch(err => console.log(err))
-
-      await sequelize.query(
-        `INSERT INTO ${username}${siteName}(user_id, site_name, password, site_username, site_url, notes)
-           VALUES('${userId}', '${siteName}', '${sitePassword}', '${siteUsername}','${siteUrl}', '${notes}');`
-      ).catch(err => console.log(err));
-    }
+    // if(checkSite[1].rowCount !== 0){
+    //   res.status(500).send('Site name already exists')
+    // } else {
+    //   await sequelize.query(
+    //     `INSERT INTO ${username}(user_id)`
+    //   )
+    // }
+    // if(user.find(site => site.site_name === siteName)){
+    //   res.status(500).send('Site name already exists')
+    // } else {
+    //   await sequelize.query(
+    //     `INSERT INTO ${username} (user_id, site_name)
+    //        VALUES('${userId}', '${siteName}');`
+    //   ).catch(err => console.log(err))
+    //
+    //   await sequelize.query(
+    //     `CREATE TABLE IF NOT EXISTS ${username}${siteName}(
+    //         id SERIAL PRIMARY KEY,
+    //         user_id SERIAL REFERENCES users,
+    //         site_name VARCHAR(75),
+    //         password VARCHAR(255) NOT NULL,
+    //         site_username VARCHAR(50),
+    //         site_url VARCHAR(100),
+    //         notes VARCHAR(250));`
+    //   ).catch(err => console.log(err))
+    //
+    //   await sequelize.query(
+    //     `INSERT INTO ${username}${siteName}(user_id, site_name, password, site_username, site_url, notes)
+    //        VALUES('${userId}', '${siteName}', '${sitePassword}', '${siteUsername}','${siteUrl}', '${notes}');`
+    //   ).catch(err => console.log(err));
+    // }
   },
   getCards: (req, res)=>{
     const {siteName, username} = req.body;

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useNavigate} from "react-router";
 import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
-import {changeUsername, changeLastName, changeFirstName, changeEmail, updateId} from "../redux/user";
+import {changeUsername, updateId} from "../redux/user";
 import {switchLoginStatus} from "../redux/isLoggedIn";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
@@ -33,13 +33,17 @@ const Login = ()=>{
     onSubmit: (values)=>{
       axios.post(`${URL}/getUser`, values)
         .then(res =>{
-          if(res.data === true){
+          console.log(res.data)
+          if(res.data.result === true){
+            dispatch(updateId(res.data.user_id))
             nav('/home');
           }
         }).catch(err => {
           alert(err.response.data)
           console.log(err)
       });
+
+      dispatch(changeUsername(values.username))
     }
   })
 

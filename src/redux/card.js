@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: 'card',
   initialState: {
-    originalSiteName: '',
     siteName: '',
     siteUsername: '',
     sitePassword: '',
@@ -12,12 +11,8 @@ export const counterSlice = createSlice({
     cardNum: 0
   },
   reducers: {
-    originalSiteName: (state, action)=>{
-      state.originalSiteName = action.payload
-    },
     changeName: (state, action)=>{
-      let name = action.payload.replace(/\s/g, "");
-      state.siteName = name;
+      state.siteName = action.payload
     },
     changeSiteUsername: (state, action)=>{
       state.siteUsername = action.payload;
@@ -37,5 +32,5 @@ export const counterSlice = createSlice({
   }
 })
 
-export const { changeCardNum, originalSiteName, changeName, changeSiteUrl, changeSiteUsername, changeSitePassword, changeNotes } = counterSlice.actions;
+export const { changeCardNum, changeName, changeSiteUrl, changeSiteUsername, changeSitePassword, changeNotes } = counterSlice.actions;
 export default counterSlice.reducer;
