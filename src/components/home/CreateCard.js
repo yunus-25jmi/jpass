@@ -9,7 +9,7 @@ const URL = 'http://localhost:5432/api'
 const CreateCard = ()=>{
   const dispatch = useDispatch();
   const card = useSelector(state => state.card)
-  const {username} = useSelector(state => state.user);
+  const {username, userId} = useSelector(state => state.user);
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +29,8 @@ const CreateCard = ()=>{
 
       const body = {
         ...values,
-        username
+        username,
+        userId
       }
 
       axios.post(`${URL}/addCard`, body)
@@ -42,23 +43,6 @@ const CreateCard = ()=>{
   })
 
 
-  // const handleSubmit = async (e)=>{
-  //   e.preventDefault()
-  //   dispatch(changeCardNum())
-  //   if(card.originalSiteName === ''){
-  //
-  //   }
-  //
-  //   await axios.post(`${URL}/addCard`, body)
-  //     .catch(err => alert(err.response.data));
-  //
-  //   await axios.post(`${URL}/getCards`, body)
-  //     .then(res =>{
-  //       console.log(res.data)
-  //       // dispatch(updateSites(res.data))
-  //     }).catch(err => console.log(err));
-  // }
-  //
   // useEffect(()=>{
   //   axios.post(`${URL}/getCards`, body)
   //     .then(res =>{
