@@ -4,73 +4,65 @@ import axios from 'axios';
 import {useDispatch, useSelector} from "react-redux";
 import {changeUsername, changeLastName, changeFirstName, changeEmail, updateId} from "../redux/user";
 import {switchLoginStatus} from "../redux/isLoggedIn";
+import {useFormik} from "formik";
+import * as Yup from 'yup';
 
+// ** main url to back end **
+const URL = 'http://localhost:5432/api'
 
 const Login = ()=>{
   const dispatch = useDispatch();
   let nav = useNavigate();
-  const URL = 'http://localhost:5432/api'
+
   const user = useSelector(state => state.user)
-  const [input, setInput] = useState({
-    username: '',
-    password: ''
-  })
 
-  const handleLogin = async (e)=>{
-    e.preventDefault()
-    let correctInfo;
-    await axios.post(`${URL}/getUser`, input)
-      .then(res =>{
-        if(res.data === true){
-          correctInfo = true;
-        } else {
-          correctInfo = false;
-          alert('wrong password or username')
-        }
-      }).catch(err => console.log(err))
+  // ** formik function **
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: ''
+    },
 
-    if(correctInfo === true){
-      console.log(correctInfo)
-      await axios.post(`${URL}/getInfo`, input)
+    // ** validation **
+    validationSchema: Yup.object({
+      username: Yup.string().required('Must enter a username'),
+      password: Yup.string().required('Must enter a valid password')
+    }),
+
+    // ** on submit function **
+    onSubmit: (values)=>{
+      axios.post(`${URL}/getUser`, values)
         .then(res =>{
-          dispatch(changeFirstName(res.data.firstname))
-          dispatch(changeLastName(res.data.lastname))
-          dispatch(changeUsername(res.data.username))
-          dispatch(changeEmail(res.data.email))
-          dispatch(switchLoginStatus(true));
-          dispatch(updateId(res.data.user_id))
-        })
-      nav('/home')
+          if(res.data === true){
+            nav('/home');
+          }
+        }).catch(err => {
+          alert(err.response.data)
+          console.log(err)
+      });
     }
-  }
-
-  const handleUsername=(e)=>{
-    setInput(prevState => ({
-      ...prevState, username: e.target.value
-    }))
-  }
-
-  const handlePassword = (e)=>{
-    setInput(prevState => ({
-      ...prevState,
-      password: e.target.value
-    }))
-  }
+  })
 
   return (
     <div className='login-container'>
-      <form className='login-form'>
+      <form className='login-form' onSubmit={formik.handleSubmit}>
         <input
-          onChange={handleUsername}
+          onChange={formik.handleChange}
           type='text'
+          value={formik.values.username}
+          name='username'
           placeholder='username'
           className='login-user'/>
         <input
-          onChange={handlePassword}
+          onChange={formik.handleChange}
           className='login-pass'
+          name='password'
+          value={formik.values.password}
           type='password'
           placeholder='password'/>
-        <button onClick={handleLogin} className='login-submit-btn'>Login</button>
+        <button
+          type='submit'
+          className='login-submit-btn'>Login</button>
       </form>
     </div>
   )

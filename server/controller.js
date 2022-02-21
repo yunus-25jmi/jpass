@@ -61,24 +61,45 @@ module.exports = {
             notes VARCHAR(250));`
       ).catch(err => console.log(err));
 
-      const userInfo = await sequelize.query(
-        `SELECT username FROM users WHERE username = '${username}'`
-      ).catch(err => console.log(err))
-      res.status(200).send(userInfo);
+      await sequelize.query(
+        `SELECT * FROM users WHERE username = '${username}'`
+      ).then(dbRes=>{
+        res.status(200).send(dbRes[0][0])
+      }).catch(err => console.log(err))
     }
   },
-  getUser: (req, res)=>{
+
+  // ** login function **
+  getUser: async (req, res)=>{
     const {username, password} = req.body;
-    sequelize.query(
-      `SELECT * FROM users WHERE username = '${username}'`
-    ).then(dbRes =>{
-      const dbPass = dbRes[0][0].password
-      bcrypt.compare(password, dbPass, function (err, result){
-        console.log(result)
-        res.status(200).send(result)
+
+    // ** checking if user exists **
+    const check = await sequelize.query(
+      `SELECT * FROM users WHERE username = '${username}';`
+    ).catch(err => console.log(err))
+
+    // ** if they do NOT exist, send error **
+    if(check[1].rowCount === 0) {
+      res.status(500).send('Username does not exist')
+    } else {
+
+      // ** if they DO exist ... **
+      await sequelize.query(
+        `SELECT * FROM users WHERE username = '${username}'`
+      ).then(dbRes =>{
+        const dbPass = dbRes[0][0].password
+        bcrypt.compare(password, dbPass, function (err, result){
+          if(result){
+            res.status(200).send(result)
+          } else {
+            res.status(500).send('Please enter the correct password')
+          }
+        })
       })
-    })
+    }
   },
+
+
   getInfo: (req, res)=>{
     const {username} = req.body;
     sequelize.query(
