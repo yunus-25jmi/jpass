@@ -8,7 +8,8 @@ export const counterSlice = createSlice({
     siteUsername: '',
     sitePassword: '',
     siteUrl: '',
-    notes: ''
+    notes: '',
+    cardNum: 0
   },
   reducers: {
     originalSiteName: (state, action)=>{
@@ -29,9 +30,12 @@ export const counterSlice = createSlice({
     },
     changeNotes: (state, action)=> {
       state.notes = action.payload;
+    },
+    changeCardNum: (state, action)=>{
+      state.cardNum = state.cardNum +1;
     }
   }
 })
 
-export const { originalSiteName, changeName, changeSiteUrl, changeSiteUsername, changeSitePassword, changeNotes } = counterSlice.actions;
+export const { changeCardNum, originalSiteName, changeName, changeSiteUrl, changeSiteUsername, changeSitePassword, changeNotes } = counterSlice.actions;
 export default counterSlice.reducer;

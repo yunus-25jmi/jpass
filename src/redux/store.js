@@ -5,6 +5,7 @@ import userReducer from './user'
 import isLoggedInReducer from "./isLoggedIn";
 import cardReducer from './card';
 import showCardReducer from './showCard';
+import sitesReducer from './sites';
 
 export default configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
     user: userReducer,
     isLoggedIn: isLoggedInReducer,
     card: cardReducer,
-    showCard: showCardReducer
+    showCard: showCardReducer,
+    sites: sitesReducer
   }
 })

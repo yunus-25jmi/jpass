@@ -8,8 +8,8 @@ const CardPreview = ()=>{
   const {hidden} = useSelector(state =>state.showCard)
 
   const openCard = (e)=>{
+    e.preventDefault();
     dispatch(switchHidden(true))
-    console.log(hidden)
   }
 
   return (

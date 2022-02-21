@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {originalSiteName, changeSiteUrl, changeSitePassword, changeName, changeSiteUsername, changeNotes} from "../../redux/card";
+import {changeCardNum,originalSiteName, changeSiteUrl, changeSitePassword, changeName, changeSiteUsername, changeNotes} from "../../redux/card";
+import {updateSites} from "../../redux/sites";
 import axios from "axios";
 const URL = 'http://localhost:5432/api'
 
@@ -14,14 +15,29 @@ const CreateCard = ()=>{
     ...user
   }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault()
+    dispatch(changeCardNum())
+    if(card.originalSiteName === ''){
 
-    axios.post(`${URL}/addCard`, body)
+    }
+
+    await axios.post(`${URL}/addCard`, body)
+      .catch(err => alert(err.response.data));
+
+    await axios.post(`${URL}/getCards`, body)
+      .then(res =>{
+        console.log(res.data)
+        // dispatch(updateSites(res.data))
+      }).catch(err => console.log(err));
+  }
+
+  useEffect(()=>{
+    axios.post(`${URL}/getCards`, body)
       .then(res =>{
         console.log(res.data)
       }).catch(err => console.log(err));
-  }
+  }, [])
 
   return (
     <div className='create-container'>

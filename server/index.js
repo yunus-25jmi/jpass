@@ -14,5 +14,6 @@ app.post('/api/User', ctrl.addUser);
 app.post('/api/getUser', ctrl.getUser);
 app.post('/api/getInfo', ctrl.getInfo);
 app.post('/api/addCard', ctrl.addCard);
+app.post('/api/getCards', ctrl.getCards);
 
 app.listen(PORT, ()=> console.log(`Running on port ${PORT}`))

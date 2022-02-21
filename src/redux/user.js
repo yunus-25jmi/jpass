@@ -8,7 +8,8 @@ export const counterSlice = createSlice({
     email: '',
     username: '',
     userId: null,
-    password: ''
+    password: '',
+    confirm: ''
   },
   reducers: {
     changeFirstName: (state, action) =>{
