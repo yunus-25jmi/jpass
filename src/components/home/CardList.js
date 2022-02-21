@@ -3,19 +3,18 @@ import CardPreview from "./CardPreview";
 import {useSelector} from "react-redux";
 
 const CardList = ()=>{
-  const {cardNum} = useSelector(state => state.card);
+  const {sites} = useSelector(state => state.sites)
 
-  const cardAmount = (num)=>{
-    while(num > 0){
-      return (
-        <CardPreview />
-      )
-    }
-  }
-
+  console.log(sites[0])
   return (
     <section className='home-cards'>
-      {cardAmount(cardNum)}
+      { sites &&
+        sites[0].map(site => (
+        <CardPreview
+          name={site.site_name}
+          key={site.site_name}
+        />
+      ))}
     </section>
   )
 }

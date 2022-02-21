@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {removePassword, changeFirstName, changePassword, changeUsername, changeLastName, changeEmail} from "../redux/user";
 import {switchSignup} from "../redux/signup";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
@@ -13,8 +12,6 @@ const SignUp = ()=>{
 
   // ** redux toolkit stuff **
   const user = useSelector(state => state.user);
-  const dispatch = useDispatch();
-  const {signUp} = useSelector(state => state.signup)
 
   // ** creating formik for user registration **
   const formik = useFormik({

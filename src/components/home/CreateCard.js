@@ -8,7 +8,6 @@ const URL = 'http://localhost:5432/api'
 
 const CreateCard = ()=>{
   const dispatch = useDispatch();
-  const card = useSelector(state => state.card)
   const {username, userId} = useSelector(state => state.user);
 
   const formik = useFormik({
@@ -41,14 +40,6 @@ const CreateCard = ()=>{
       })
     }
   })
-
-
-  // useEffect(()=>{
-  //   axios.post(`${URL}/getCards`, body)
-  //     .then(res =>{
-  //       console.log(res.data)
-  //     }).catch(err => console.log(err));
-  // }, [])
 
   return (
     <div className='create-container'>

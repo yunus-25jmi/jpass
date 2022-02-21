@@ -38,6 +38,8 @@ export const counterSlice = createSlice({
       state.lastname = '';
       state.email = '';
       state.username = '';
+      state.password = '';
+      state.userId = '';
     },
     removePassword: (state, action)=>{
       state.password = '';

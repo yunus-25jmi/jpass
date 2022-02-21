@@ -15,6 +15,7 @@ const Logout = ()=>{
     dispatch(switchSignupType(false));
     dispatch(revert());
     dispatch(switchLoginStatus(false));
+    localStorage.clear();
     nav('/')
   }
 

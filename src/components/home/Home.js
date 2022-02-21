@@ -1,13 +1,34 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import WelcomeUser from "./WelcomeUser";
 import CreateCard from "./CreateCard";
 import CardList from "./CardList";
 import './home.css'
 import Card from "./Card";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import {udateSites, updateSites} from '../../redux/sites';
+
+const URL = 'http://localhost:5432/api'
 
 const Home = ()=>{
   const {hidden} = useSelector(state => state.showCard);
+  const {username} = useSelector(state => state.user);
+  const {siteName} = useSelector(state => state.card);
+  const cards = useSelector(state => state.card);
+  const dispatch = useDispatch();
+
+  const body = {
+    username,
+    siteName
+  }
+
+  useEffect(()=>{
+    axios.post(`${URL}/getCards`, body)
+      .then(res =>{
+        dispatch(updateSites(res.data))
+      }).catch(err => console.log(err));
+  }, [cards])
+
 
   return (
     <div className='home'>

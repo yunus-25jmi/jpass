@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import { useNavigate} from "react-router";
 import axios from 'axios';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {changeUsername, updateId} from "../redux/user";
 import {switchLoginStatus} from "../redux/isLoggedIn";
 import {useFormik} from "formik";
@@ -13,8 +13,6 @@ const URL = 'http://localhost:5432/api'
 const Login = ()=>{
   const dispatch = useDispatch();
   let nav = useNavigate();
-
-  const user = useSelector(state => state.user)
 
   // ** formik function **
   const formik = useFormik({
@@ -36,6 +34,7 @@ const Login = ()=>{
           console.log(res.data)
           if(res.data.result === true){
             dispatch(updateId(res.data.user_id))
+            localStorage.setItem('userId', res.data.user_id)
             nav('/home');
           }
         }).catch(err => {
@@ -44,6 +43,7 @@ const Login = ()=>{
       });
 
       dispatch(changeUsername(values.username))
+      localStorage.setItem('username', values.username)
     }
   })
 

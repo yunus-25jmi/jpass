@@ -2,7 +2,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {switchHidden} from "../../redux/showCard";
 
-const CardPreview = ()=>{
+const CardPreview = ({name})=>{
   const {originalSiteName} = useSelector(state => state.card)
   const dispatch = useDispatch();
   const {hidden} = useSelector(state =>state.showCard)
@@ -16,7 +16,7 @@ const CardPreview = ()=>{
     <div
       onClick={openCard}
       className='preview'>
-      <h1 className='preview-title'>{originalSiteName}</h1>
+      <h1 className='preview-title'>{name}</h1>
     </div>
   )
 }

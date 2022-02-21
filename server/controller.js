@@ -135,14 +135,15 @@ module.exports = {
     }
   },
 
-
+  // ** home function for retrieving info for cards **
   getCards: (req, res)=>{
     const {siteName, username} = req.body;
+    console.log(req.body)
     sequelize.query(
       `SELECT site_name FROM ${username}`
     ).then(dbRes =>{
       console.log(dbRes[0])
-      res.status(200).send(dbRes[0][0])
+      res.status(200).send(dbRes[0])
     }).catch(err => console.log(err));
   }
 }
