@@ -2,26 +2,34 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {switchHidden} from "../../redux/showCard";
 import axios from "axios";
+import {changeName, changeNotes, changeSiteUrl, changeSiteUsername, changeSitePassword} from "../../redux/card";
 
 const URL = 'http://localhost:5432/api'
 
 const CardPreview = ({name})=>{
-  const {originalSiteName} = useSelector(state => state.card)
   const dispatch = useDispatch();
-  const {hidden} = useSelector(state =>state.showCard)
-
-  const body = {
-
-  }
 
   const openCard = async (e)=>{
     e.preventDefault();
 
-    await axios.get(`${URL}/viewCard`, body)
+    // ** body to pass into axios **
+    let body = {
+      siteName: name,
+      username: localStorage.getItem('username')
+    }
+
+    // ** axios call to retrieve the data from the selected card preview **
+    await axios.post(`${URL}/viewCard`, body)
       .then(res => {
         console.log(res.data)
-      }).catch()
+        dispatch(changeName(res.data.site_name))
+        dispatch(changeSiteUrl(res.data.site_url))
+        dispatch(changeSitePassword(res.data.site_password))
+        dispatch(changeSiteUsername(res.data.site_username))
+        dispatch(changeNotes(res.data.notes))
+      }).catch(err => console.log(err));
 
+    // ** shows the card **
     dispatch(switchHidden(true))
   }
 

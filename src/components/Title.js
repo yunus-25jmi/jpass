@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {switchSignup} from "../redux/signup";
 import {switchLogin} from "../redux/login";
 
-const Title = ({setLogin})=>{
+const Title = ()=>{
   const dispatch = useDispatch();
 
   return (

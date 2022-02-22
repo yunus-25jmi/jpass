@@ -12,8 +12,8 @@ app.use(cors())
 app.post('/api/users', ctrl.seedUsers);
 app.post('/api/User', ctrl.addUser);
 app.post('/api/getUser', ctrl.getUser);
-app.post('/api/getInfo', ctrl.getInfo);
 app.post('/api/addCard', ctrl.addCard);
 app.post('/api/getCards', ctrl.getCards);
+app.post('/api/viewCard', ctrl.viewCard)
 
 app.listen(PORT, ()=> console.log(`Running on port ${PORT}`))

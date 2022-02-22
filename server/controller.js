@@ -103,16 +103,6 @@ module.exports = {
     }
   },
 
-
-  getInfo: (req, res)=>{
-    const {username} = req.body;
-    sequelize.query(
-      `SELECT * FROM users WHERE username = '${username}'`
-    ).then(dbRes =>{
-      res.status(200).send(dbRes[0][0])
-    })
-  },
-
   // ** create card function **
   addCard: async (req, res) =>{
     const {username, userId, notes, siteName, siteUrl, siteUsername, sitePassword} = req.body;
@@ -151,5 +141,15 @@ module.exports = {
     ).then(dbRes =>{
       res.status(200).send(dbRes[0])
     }).catch(err => console.log(err));
+  },
+
+  // ** card pop up function **
+  viewCard: async (req, res)=>{
+   const {username, siteName} = req.body;
+
+   const data = await sequelize.query(
+     `SELECT * FROM ${username} WHERE site_name = '${siteName}';`
+   ).catch(err => console.log(err))
+    res.status(200).send(data[0][0])
   }
 }

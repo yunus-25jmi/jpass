@@ -29,7 +29,7 @@ const CreateCard = ()=>{
       const body = {
         ...values,
         username: username || localStorage.getItem('username'),
-        userId: username || localStorage.getItem('userId')
+        userId: userId || localStorage.getItem('userId')
       }
 
       axios.post(`${URL}/addCard`, body)

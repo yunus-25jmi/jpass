@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
-import {switchSignup} from "../redux/signup";
+import {useSelector} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 
