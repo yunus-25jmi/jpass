@@ -3,9 +3,11 @@ import { useNavigate} from "react-router";
 import axios from 'axios';
 import {useDispatch} from "react-redux";
 import {changeUsername, updateId} from "../redux/user";
-import {switchLoginStatus} from "../redux/isLoggedIn";
+import {switchLogin} from "../redux/login";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBackward} from "@fortawesome/free-solid-svg-icons";
 
 // ** main url to back end **
 const URL = 'http://localhost:5432/api'
@@ -68,6 +70,10 @@ const Login = ()=>{
           type='submit'
           className='login-submit-btn'>Login</button>
       </form>
+      <FontAwesomeIcon
+        className='back-to-title-btn'
+        icon={faBackward}
+        onClick={()=> dispatch(switchLogin())}/>
     </div>
   )
 }

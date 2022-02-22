@@ -1,13 +1,17 @@
 import React from "react";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
+import {faBackward} from "@fortawesome/free-solid-svg-icons";
+import {switchSignup} from "../redux/signup";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 // ** main url for back end **
 const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
+  const dispatch = useDispatch();
 
   // ** redux toolkit stuff **
   const user = useSelector(state => state.user);
@@ -104,6 +108,10 @@ const SignUp = ()=>{
         >Sign Up
         </button>
       </form>
+      <FontAwesomeIcon
+        className='back-to-title-btn'
+        icon={faBackward}
+        onClick={()=> dispatch(switchSignup())}/>
     </div>
   )
 }
