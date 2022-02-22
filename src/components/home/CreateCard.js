@@ -4,6 +4,7 @@ import {changeCardNum, changeSiteUrl, changeSitePassword, changeName, changeSite
 import {updateSites, addSites} from "../../redux/sites";
 import axios from "axios";
 import {useFormik} from "formik";
+import * as Yup from "yup";
 const URL = 'http://localhost:5432/api'
 
 const CreateCard = ()=>{
@@ -18,6 +19,15 @@ const CreateCard = ()=>{
       siteUrl: '',
       notes: ''
     },
+
+    // ** validate the information typed in **
+    validationSchema: Yup.object({
+      siteName: Yup.string()
+        .max(50).required('Site name required'),
+      notes: Yup.string()
+        .max(100, 'Cannot be more than 100 characters')
+    }),
+
     onSubmit: (values)=>{
       const {siteName, siteUsername, sitePassword, siteUrl, notes} = values;
       dispatch(changeName(siteName))
@@ -38,6 +48,9 @@ const CreateCard = ()=>{
         }).catch(err =>{
           alert(err.response.data)
       })
+
+      // ** form reset function provided by formik **
+      formik.resetForm();
     }
   })
 
@@ -47,13 +60,16 @@ const CreateCard = ()=>{
       <form
         onSubmit={formik.handleSubmit}
         className='create-form'>
-        <input
-          className='create-input'
-          type='text'
-          value={formik.values.siteName}
-          name='siteName'
-          placeholder='Site Name'
-          onChange={formik.handleChange}/>
+        <div>
+          <input
+            className='create-input'
+            type='text'
+            value={formik.values.siteName}
+            name='siteName'
+            placeholder='Site Name'
+            onChange={formik.handleChange}/>
+          <p className='form-div-p'>{formik.errors.siteName}</p>
+        </div>
         <input
           className='create-input'
           type='text'
@@ -75,12 +91,15 @@ const CreateCard = ()=>{
           value={formik.values.siteUrl}
           name='siteUrl'
           onChange={formik.handleChange}/>
-        <textarea
-          className='create-input notes'
-          placeholder='Notes...'
-          value={formik.values.notes}
-          name='notes'
-          onChange={formik.handleChange}/>
+        <div>
+          <textarea
+            className='create-input notes'
+            placeholder='Notes...'
+            value={formik.values.notes}
+            name='notes'
+            onChange={formik.handleChange}/>
+          <p className='form-div-p'>{formik.errors.notes}</p>
+        </div>
         <button
           type='submit'
           className='create-card-btn'>Submit
