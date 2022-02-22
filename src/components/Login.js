@@ -8,6 +8,8 @@ import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBackward} from "@fortawesome/free-solid-svg-icons";
+import CryptoJS from "crypto-js";
+import {hashPassword} from "../redux/key";
 
 // ** main url to back end **
 const URL = 'http://localhost:5432/api'
@@ -31,6 +33,9 @@ const Login = ()=>{
 
     // ** on submit function **
     onSubmit: (values)=>{
+      const newKey = CryptoJS.SHA256(values.password).toString()
+      dispatch(hashPassword(newKey))
+
       axios.post(`${URL}/getUser`, values)
         .then(res =>{
           console.log(res.data)

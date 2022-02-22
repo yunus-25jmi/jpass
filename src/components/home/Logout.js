@@ -5,6 +5,7 @@ import {switchSignupType} from "../../redux/signup";
 import {switchLoginType} from "../../redux/login";
 import {revert} from '../../redux/user';
 import {switchLoginStatus} from "../../redux/isLoggedIn";
+import {clearKey} from "../../redux/key";
 
 const Logout = ()=>{
   const nav = useNavigate();
@@ -15,6 +16,7 @@ const Logout = ()=>{
     dispatch(switchSignupType(false));
     dispatch(revert());
     dispatch(switchLoginStatus(false));
+    dispatch(clearKey());
     localStorage.clear();
     nav('/')
   }

@@ -14,8 +14,7 @@ const Home = ()=>{
   const {hidden} = useSelector(state => state.showCard);
   const {username} = useSelector(state => state.user);
   const {siteName} = useSelector(state => state.card);
-  const cards = useSelector(state => state.card);
-  const sites = useSelector(state => state.sites);
+  const key = useSelector(state => state.key);
   const dispatch = useDispatch();
 
   const body = {

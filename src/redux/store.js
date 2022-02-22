@@ -6,6 +6,7 @@ import isLoggedInReducer from "./isLoggedIn";
 import cardReducer from './card';
 import showCardReducer from './showCard';
 import sitesReducer from './sites';
+import keyReducer from './key';
 
 export default configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
     isLoggedIn: isLoggedInReducer,
     card: cardReducer,
     showCard: showCardReducer,
-    sites: sitesReducer
+    sites: sitesReducer,
+    key: keyReducer
   }
 })

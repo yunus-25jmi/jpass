@@ -1,15 +1,17 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeCardNum, changeSiteUrl, changeSitePassword, changeName, changeSiteUsername, changeNotes} from "../../redux/card";
+import {changeSiteUrl, changeSitePassword, changeName, changeSiteUsername, changeNotes} from "../../redux/card";
 import {updateSites, addSites} from "../../redux/sites";
 import axios from "axios";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import CryptoJS from 'crypto-js';
 const URL = 'http://localhost:5432/api'
 
 const CreateCard = ()=>{
   const dispatch = useDispatch();
   const {username, userId} = useSelector(state => state.user);
+  const {password} = useSelector(state => state.key)
 
   const formik = useFormik({
     initialValues: {
@@ -31,17 +33,22 @@ const CreateCard = ()=>{
     onSubmit: (values)=>{
       const {siteName, siteUsername, sitePassword, siteUrl, notes} = values;
 
+      // ** creating encrypted password for the site, before it goes to the back end **
+      const encrypted = CryptoJS.AES.encrypt(sitePassword, password).toString();
+
       dispatch(changeName(siteName))
       dispatch(changeSiteUsername(siteUsername))
-      dispatch(changeSitePassword(sitePassword))
+      dispatch(changeSitePassword(encrypted))
       dispatch(changeSiteUrl(siteUrl))
       dispatch(changeNotes(notes))
 
       const body = {
         ...values,
+        sitePassword: encrypted,
         username: username || localStorage.getItem('username'),
         userId: userId || localStorage.getItem('userId')
       }
+      console.log(body)
 
       axios.post(`${URL}/addCard`, body)
         .then(res =>{
