@@ -7,10 +7,13 @@ export const counterSlice = createSlice({
   },
   reducers: {
     updateSites: (state, action)=>{
-      state.sites = [...state.sites, action.payload]
+      state.sites = [...action.payload]
+    },
+    addSites: (state, action)=>{
+      state.sites = [...state.sites, action.payload];
     }
   }
 })
 
-export const { updateSites } = counterSlice.actions;
+export const { updateSites, addSites } = counterSlice.actions;
 export default counterSlice.reducer;

@@ -132,17 +132,23 @@ module.exports = {
         `INSERT INTO ${username}(user_id, site_name, site_password, site_username, site_url, notes)
             VALUES(${userId}, '${siteName}', '${sitePassword}', '${siteUsername}', '${siteUrl}', '${notes}')`
       ).catch(err => console.log(err))
+
+      await sequelize.query(
+        `SELECT * FROM ${username} WHERE site_name = '${siteName}';`
+      ).then(dbRes =>{
+        res.status(200).send(dbRes[0][0])
+      }).catch(err=> console.log(err))
     }
   },
 
   // ** home function for retrieving info for cards **
   getCards: (req, res)=>{
-    const {siteName, username} = req.body;
+    const {username} = req.body;
     console.log(req.body)
+    console.log(username)
     sequelize.query(
       `SELECT site_name FROM ${username}`
     ).then(dbRes =>{
-      console.log(dbRes[0])
       res.status(200).send(dbRes[0])
     }).catch(err => console.log(err));
   }

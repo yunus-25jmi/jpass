@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {changeCardNum, changeSiteUrl, changeSitePassword, changeName, changeSiteUsername, changeNotes} from "../../redux/card";
-import {updateSites} from "../../redux/sites";
+import {updateSites, addSites} from "../../redux/sites";
 import axios from "axios";
 import {useFormik} from "formik";
 const URL = 'http://localhost:5432/api'
@@ -28,13 +28,13 @@ const CreateCard = ()=>{
 
       const body = {
         ...values,
-        username,
-        userId
+        username: username || localStorage.getItem('username'),
+        userId: username || localStorage.getItem('userId')
       }
 
       axios.post(`${URL}/addCard`, body)
         .then(res =>{
-          console.log(res.data)
+          dispatch(addSites(res.data))
         }).catch(err =>{
           alert(err.response.data)
       })

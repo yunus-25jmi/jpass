@@ -4,12 +4,10 @@ import {useSelector} from "react-redux";
 
 const CardList = ()=>{
   const {sites} = useSelector(state => state.sites)
-
-  console.log(sites[0])
+  // console.log(sites)
   return (
     <section className='home-cards'>
-      { sites &&
-        sites[0].map(site => (
+      { sites && sites.length && sites[0] && sites.map(site => (
         <CardPreview
           name={site.site_name}
           key={site.site_name}
