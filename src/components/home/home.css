@@ -203,6 +203,19 @@
     color: white;
     text-align: center;
 }
+
+.card-pass {
+    font-size: 25px;
+}
+
+.card-info-eye{
+    position: relative;
+    left: 45%;
+    top: -60%;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 .card-notes{
     height: 30%;
     text-align: left;

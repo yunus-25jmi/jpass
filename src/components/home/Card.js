@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye} from "@fortawesome/free-solid-svg-icons";
 import {faPencil, faTrashCan, faBackward} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {switchHidden} from "../../redux/showCard";
@@ -12,6 +13,7 @@ const Card = ()=>{
   const dispatch = useDispatch();
   const card = useSelector(state => state.card);
   const key = useSelector(state => state.key)
+  const [hide, setHide] = useState(false)
 
   const handleDelete = ()=>{
     const body = {
@@ -43,7 +45,16 @@ const Card = ()=>{
           icon={faTrashCan} />
         <h1 className='card-name card-info'>{card.siteName}</h1>
         <h2 className='card-username card-info'>{card.siteUsername}</h2>
-        <h2 className='card-pass card-info'>{handleDecrypt()}</h2>
+        <div className='card-info'>
+          <h2 className='card-pass'>
+            {hide ? handleDecrypt() : '*************'}
+          </h2>
+          <FontAwesomeIcon
+            className='card-info-eye'
+            onClick={()=>setHide(!hide)}
+            icon={faEye} />
+        </div>
+
         <h2 className='card-url card-info'>{card.siteUrl}</h2>
         <p className='card-notes card-info'>{card.notes}</p>
       </div>
