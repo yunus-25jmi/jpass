@@ -15,5 +15,6 @@ app.post('/api/getUser', ctrl.getUser);
 app.post('/api/addCard', ctrl.addCard);
 app.post('/api/getCards', ctrl.getCards);
 app.post('/api/viewCard', ctrl.viewCard)
+app.post('/api/deleteCard', ctrl.deleteCard)
 
 app.listen(PORT, ()=> console.log(`Running on port ${PORT}`))

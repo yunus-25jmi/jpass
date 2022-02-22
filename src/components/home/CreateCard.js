@@ -30,6 +30,7 @@ const CreateCard = ()=>{
 
     onSubmit: (values)=>{
       const {siteName, siteUsername, sitePassword, siteUrl, notes} = values;
+
       dispatch(changeName(siteName))
       dispatch(changeSiteUsername(siteUsername))
       dispatch(changeSitePassword(sitePassword))

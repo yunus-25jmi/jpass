@@ -29,7 +29,7 @@ const Home = ()=>{
         .then(res =>{
           dispatch(updateSites(res.data))
         }).catch(err => console.log(err));
-  }, [])
+  }, [hidden])
 
 
   return (

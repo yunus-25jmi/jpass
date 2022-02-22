@@ -151,5 +151,19 @@ module.exports = {
      `SELECT * FROM ${username} WHERE site_name = '${siteName}';`
    ).catch(err => console.log(err))
     res.status(200).send(data[0][0])
+  },
+
+  // ** delete card function **
+  deleteCard: async (req, res)=>{
+    const {siteName, username} = req.body
+    console.log(req.body)
+
+    // ** delete from users username table **
+    await sequelize.query(
+      `DELETE FROM ${username} WHERE site_name = '${siteName}'`
+    ).then(dbRes => {
+      res.status(200).send(dbRes[0])
+    }).catch(err => console.log(err))
   }
+
 }
