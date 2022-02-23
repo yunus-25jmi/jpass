@@ -7,12 +7,22 @@ import {useSelector} from "react-redux";
 const Landing = ()=>{
   const {signUp} = useSelector(state => state.signup)
   const {login} = useSelector(state => state.login)
+  const {isLoading} = useSelector(state => state.isLoading);
 
   return (
     <div className='landing'>
-      {!login && !signUp && <Title />}
-      {login && <Login />}
-      {signUp && <SignUp />}
+      {/*       **Loading rings**       */}
+      {isLoading && <div className="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div> }
+
+      {/*         ** Rendering component**        */}
+      {!isLoading && !login && !signUp && <Title />}
+      {!isLoading && login && <Login />}
+      {!isLoading && signUp && <SignUp />}
     </div>
   )
 }

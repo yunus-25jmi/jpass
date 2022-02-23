@@ -7,6 +7,7 @@ import cardReducer from './card';
 import showCardReducer from './showCard';
 import sitesReducer from './sites';
 import keyReducer from './key';
+import isLoadingReducer from './isLoading';
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     card: cardReducer,
     showCard: showCardReducer,
     sites: sitesReducer,
-    key: keyReducer
+    key: keyReducer,
+    isLoading: isLoadingReducer
   }
 })

@@ -164,6 +164,36 @@ module.exports = {
     ).then(dbRes => {
       res.status(200).send(dbRes[0])
     }).catch(err => console.log(err))
-  }
+  },
 
+  // ** retrieving card info for edit card functon **
+  getCardInfo: (req, res) => {
+    const {siteName, username} = req.body;
+    sequelize.query(`
+      SELECT * FROM ${username} WHERE site_name = '${siteName}'`)
+      .then(dbRes => {
+        res.status(200).send(dbRes[0][0])
+      }).catch(err => console.log(err));
+  },
+
+  // ** edit card function **
+  editCard: async (req, res) => {
+    const {username, notes, siteName, siteUrl, siteUsername, sitePassword, oldSite} = req.body;
+    await sequelize.query(
+      `UPDATE ${username}
+           SET 
+                site_name = '${siteName}',
+                site_password = '${sitePassword}',
+                site_username = '${siteUsername}',
+                site_url = '${siteUrl}',
+                notes = '${notes}'
+           WHERE site_name = '${oldSite}';`
+    ).catch(err => console.log(err))
+
+    await sequelize.query(
+      `SELECT * FROM ${username};`
+    ).then(dbRes => {
+      res.status(200).send(dbRes[0][0])
+    }).catch(err => console.log(err));
+  }
 }

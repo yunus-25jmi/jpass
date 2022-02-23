@@ -6,12 +6,14 @@ import * as Yup from 'yup';
 import {faBackward} from "@fortawesome/free-solid-svg-icons";
 import {switchSignup} from "../redux/signup";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {switchLoading} from "../redux/isLoading";
 
 // ** main url for back end **
 const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
   const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.isLoading);
 
   // ** redux toolkit stuff **
   const user = useSelector(state => state.user);
@@ -43,12 +45,18 @@ const SignUp = ()=>{
 
     // ** on submit function for form **
     onSubmit: (values)=>{
+      // ** switch loading icon to true** //
+      dispatch(switchLoading())
+
       axios.post(`${URL}/User`, values)
         .then(res =>{
           console.log(res.data)
+          dispatch(switchLoading())
+          dispatch(switchSignup())
         }).catch(err => {
+          dispatch(switchLoading())
           alert(err.response.data)
-        console.log(err)
+          console.log(err)
       });
     },
   });

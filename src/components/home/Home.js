@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import WelcomeUser from "./WelcomeUser";
 import CreateCard from "./CreateCard";
 import CardList from "./CardList";
@@ -7,14 +7,15 @@ import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import {updateSites} from '../../redux/sites';
+import cardLoading, {switchLoading} from "../../redux/isLoading";
+import Edit from "./Edit";
 
 const URL = 'http://localhost:5432/api'
 
 const Home = ()=>{
-  const {hidden} = useSelector(state => state.showCard);
+  const {hidden, edit} = useSelector(state => state.showCard);
   const {username} = useSelector(state => state.user);
   const {siteName} = useSelector(state => state.card);
-  const key = useSelector(state => state.key);
   const dispatch = useDispatch();
 
   const body = {
@@ -22,11 +23,13 @@ const Home = ()=>{
     siteName
   }
 
-  // ** use effect funciton updates cards when refreshed or sites state changes **
+  // ** use effect function updates cards when refreshed or sites state changes **
   useEffect(()=>{
+    dispatch(switchLoading())
       axios.post(`${URL}/getCards`, body)
         .then(res =>{
           dispatch(updateSites(res.data))
+          dispatch(switchLoading())
         }).catch(err => console.log(err));
   }, [hidden])
 
@@ -38,7 +41,8 @@ const Home = ()=>{
           <CreateCard />
         </section>
         <CardList/>
-      {hidden && <Card />}
+      {cardLoading && hidden && <Card />}
+      {edit && <Edit />}
     </div>
   )
 }

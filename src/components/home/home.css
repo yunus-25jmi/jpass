@@ -169,11 +169,6 @@
             perspective(750px)
             translate3d(0px, 0px, -250px);
 }
-.card-exit:hover {
-    cursor: pointer;
-    transform:
-            translate3d(0px, 0px, -250px);
-}
 
 .card-delete{
     position: absolute;
@@ -187,11 +182,6 @@
             perspective(750px)
             translate3d(0px, 0px, -250px);
 }
-.card-delete:hover{
-    cursor: pointer;
-    transform:
-            translate3d(0px, 0px, -250px);
-}
 
 .card-edit{
     position: absolute;
@@ -203,11 +193,6 @@
     transition: 0.3s ease-in-out transform;
     transform:
             perspective(750px)
-            translate3d(0px, 0px, -250px);
-}
-.card-edit:hover{
-    cursor: pointer;
-    transform:
             translate3d(0px, 0px, -250px);
 }
 
@@ -241,7 +226,7 @@
             perspective(750px)
             translate3d(0px, 0px, -250px);
 }
-.card-info-eye:hover{
+.card-info-eye:hover, .card-exit:hover, .card-edit:hover, .card-delete:hover {
     cursor: pointer;
     transform:
             translate3d(0px, 0px, -250px);
@@ -297,4 +282,18 @@
     background: white;
     color: rgba(129,7,7,1);
     transform: translate3d(0px, 0px, -250px);
+}
+
+.edit-page {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,.9);
+}
+
+.edit-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

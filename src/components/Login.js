@@ -10,6 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBackward} from "@fortawesome/free-solid-svg-icons";
 import CryptoJS from "crypto-js";
 import {hashPassword} from "../redux/key";
+import {switchLoading} from "../redux/isLoading";
 
 // ** main url to back end **
 const URL = 'http://localhost:5432/api'
@@ -33,15 +34,19 @@ const Login = ()=>{
 
     // ** on submit function **
     onSubmit: (values)=>{
+      // ** switch loading icon to true** //
+      dispatch(switchLoading())
+
       const newKey = CryptoJS.SHA256(values.password).toString()
       dispatch(hashPassword(newKey))
+      localStorage.setItem('userKey', newKey);
 
       axios.post(`${URL}/getUser`, values)
         .then(res =>{
-          console.log(res.data)
           if(res.data.result === true){
             dispatch(updateId(res.data.user_id))
             localStorage.setItem('userId', res.data.user_id)
+            dispatch(switchLoading())
             nav('/home');
           }
         }).catch(err => {
