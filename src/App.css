@@ -10,7 +10,7 @@ html {
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    background: #e6dee6;
+    background: white;
 }
 
 .title-container{
@@ -178,7 +178,7 @@ html {
     background: linear-gradient(45deg, rgba(129,7,7,1) 1%, rgba(249,55,55,1) 100%);
     background-size: cover;
     width: 350px;
-    height: 125px;
+    min-height: 125px;
     border-radius: 25px;
     background: rgb(129,7,7);
     background: linear-gradient(45deg, rgba(129,7,7,1) 1%, rgba(249,55,55,1) 100%);
@@ -203,6 +203,8 @@ html {
     color: white;
     font-size: 200%;
     font-family: 'Rowdies', cursive;
+    text-align: center;
+    overflow: auto;
 }
 
 .back-to-title-btn{

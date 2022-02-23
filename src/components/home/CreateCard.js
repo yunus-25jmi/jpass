@@ -25,9 +25,11 @@ const CreateCard = ()=>{
     // ** validate the information typed in **
     validationSchema: Yup.object({
       siteName: Yup.string()
-        .max(50).required('Site name required'),
+        .max(30).required('Site name required'),
       notes: Yup.string()
-        .max(100, 'Cannot be more than 100 characters')
+        .max(100, 'Cannot be more than 100 characters'),
+      sitePassword: Yup.string()
+        .max(30, 'Cannot be more than 30 characters')
     }),
 
     onSubmit: (values)=>{
@@ -48,7 +50,6 @@ const CreateCard = ()=>{
         username: username || localStorage.getItem('username'),
         userId: userId || localStorage.getItem('userId')
       }
-      console.log(body)
 
       axios.post(`${URL}/addCard`, body)
         .then(res =>{
@@ -85,13 +86,16 @@ const CreateCard = ()=>{
           name='siteUsername'
           value={formik.values.siteUsername}
           onChange={formik.handleChange}/>
-        <input
-          className='create-input'
-          type='password'
-          placeholder='Password'
-          name='sitePassword'
-          value={formik.values.sitePassword}
-          onChange={formik.handleChange}/>
+        <div>
+          <input
+            className='create-input'
+            type='password'
+            placeholder='Password'
+            name='sitePassword'
+            value={formik.values.sitePassword}
+            onChange={formik.handleChange}/>
+          <p className='form-div-p'>{formik.errors.sitePassword}</p>
+        </div>
         <input
           className='create-input'
           type='text'

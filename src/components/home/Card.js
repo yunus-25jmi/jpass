@@ -21,16 +21,22 @@ const Card = ()=>{
       username: localStorage.getItem('username')
     }
 
-    ///** delete method for database **
+    //** delete method for database **
     axios.post(`${URL}/deleteCard`, body)
       .catch(err => console.log(err))
 
     dispatch(switchHidden(false))
   }
 
+  // ** function to show/hide password
   const handleDecrypt = ()=>{
     const decrypted = CryptoJS.AES.decrypt(card.sitePassword, key.password);
     return decrypted.toString(CryptoJS.enc.Utf8);
+  }
+
+  // ** handles edit button click
+  const handleEdit = ()=>{
+    console.log('edit')
   }
 
   return (
@@ -43,18 +49,17 @@ const Card = ()=>{
           className='card-delete'
           onClick={handleDelete}
           icon={faTrashCan} />
+        <FontAwesomeIcon
+          className='card-edit'
+          onClick={handleEdit}
+          icon={faPencil} />
+        <FontAwesomeIcon
+          className='card-info-eye'
+          onClick={()=>setHide(!hide)}
+          icon={faEye} />
         <h1 className='card-name card-info'>{card.siteName}</h1>
         <h2 className='card-username card-info'>{card.siteUsername}</h2>
-        <div className='card-info'>
-          <h2 className='card-pass'>
-            {hide ? handleDecrypt() : '*************'}
-          </h2>
-          <FontAwesomeIcon
-            className='card-info-eye'
-            onClick={()=>setHide(!hide)}
-            icon={faEye} />
-        </div>
-
+        <h2 className='card-info'>{hide ? handleDecrypt() : '*************'}</h2>
         <h2 className='card-url card-info'>{card.siteUrl}</h2>
         <p className='card-notes card-info'>{card.notes}</p>
       </div>
