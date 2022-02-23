@@ -51,7 +51,6 @@ const Card = ()=>{
 
     await axios.post(`${URL}/getCardInfo`, body)
       .then(res => {
-        console.log(res.data)
         const decrypted = CryptoJS.AES.decrypt(res.data.site_password, key.password)
         const pass = decrypted.toString(CryptoJS.enc.Utf8)
         dispatch(changeName(res.data.site_name))

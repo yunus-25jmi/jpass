@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {switchEdit} from "../../redux/showCard";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-solid-svg-icons";
+import {updateSites} from "../../redux/sites";
 
 const URL = 'http://localhost:5432/api'
 
@@ -52,15 +53,14 @@ const Edit = ()=>{
       // ** axios call to post the new information **
       axios.post(`${URL}/editCard`, body)
         .then(res =>{
-          console.log(res.data)
+          dispatch(updateSites(res.data))
+          // ** form reset function provided by formik **
+          formik.resetForm();
+          // ** switching off edit card **
+          dispatch(switchEdit(false));
         }).catch(err =>{
         alert(err.response.data)
       })
-
-      // ** form reset function provided by formik **
-      formik.resetForm();
-      // ** switching off edit card **
-      dispatch(switchEdit(false));
     }
   })
 

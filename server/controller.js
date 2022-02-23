@@ -134,8 +134,6 @@ module.exports = {
   // ** home function for retrieving info for cards **
   getCards: (req, res)=>{
     const {username} = req.body;
-    console.log(req.body)
-    console.log(username)
     sequelize.query(
       `SELECT site_name FROM ${username}`
     ).then(dbRes =>{
@@ -179,8 +177,20 @@ module.exports = {
   // ** edit card function **
   editCard: async (req, res) => {
     const {username, notes, siteName, siteUrl, siteUsername, sitePassword, oldSite} = req.body;
-    await sequelize.query(
-      `UPDATE ${username}
+    console.log(sitePassword)
+
+    // ** checking custom user table to see if site already exists
+    const checkSite = await sequelize.query(
+      `SELECT * FROM ${username} WHERE site_name = '${siteName}'`
+    ).catch(err => console.log(err))
+
+    // ** checking to see if site exists
+    if (checkSite[1].rowCount !== 0) {
+      // ** if site does exist send back an error message **
+      res.status(500).send('Site name already exists')
+    } else {
+      await sequelize.query(
+        `UPDATE ${username}
            SET 
                 site_name = '${siteName}',
                 site_password = '${sitePassword}',
@@ -188,12 +198,13 @@ module.exports = {
                 site_url = '${siteUrl}',
                 notes = '${notes}'
            WHERE site_name = '${oldSite}';`
-    ).catch(err => console.log(err))
+      ).catch(err => console.log(err))
 
-    await sequelize.query(
-      `SELECT * FROM ${username};`
-    ).then(dbRes => {
-      res.status(200).send(dbRes[0][0])
-    }).catch(err => console.log(err));
+      await sequelize.query(
+        `SELECT site_name FROM ${username};`
+      ).then(dbRes => {
+        res.status(200).send(dbRes[0])
+      }).catch(err => console.log(err));
+    }
   }
 }
