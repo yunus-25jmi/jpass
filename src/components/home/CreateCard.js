@@ -6,6 +6,7 @@ import axios from "axios";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import CryptoJS from 'crypto-js';
+import {switchSmall} from "../../redux/smallScreen";
 const URL = 'http://localhost:5432/api'
 
 const CreateCard = ()=>{
@@ -54,6 +55,7 @@ const CreateCard = ()=>{
       axios.post(`${URL}/addCard`, body)
         .then(res =>{
           dispatch(addSites(res.data))
+          dispatch(switchSmall(false))
         }).catch(err =>{
           alert(err.response.data)
       })

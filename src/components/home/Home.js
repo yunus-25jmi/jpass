@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import WelcomeUser from "./WelcomeUser";
 import CreateCard from "./CreateCard";
 import CardList from "./CardList";
@@ -9,6 +9,10 @@ import {updateSites} from '../../redux/sites';
 import {switchLoading} from "../../redux/isLoading";
 import Edit from "./Edit";
 import useWindowDimensions from "../useWindowDimensions";
+import Menu from "./Menu";
+import Media from "react-media";
+import {switchSmall} from "../../redux/smallScreen";
+import Logout from "./Logout";
 
 const URL = 'http://localhost:5432/api'
 
@@ -17,17 +21,7 @@ const Home = ()=>{
   const {username} = useSelector(state => state.user);
   const {siteName} = useSelector(state => state.card);
   const dispatch = useDispatch();
-  const {height, width} = useWindowDimensions();
-
-  const windowSize = (h, w)=> {
-    if(h >= 481 && h <= 768){
-      return 'home-medium'
-    } else if(h >= 769){
-      return 'home'
-    } else if(h < 480){
-      return 'home-small'
-    }
-  }
+  const {small} = useSelector(state => state.smallScreen);
 
   const body = {
     username: username || localStorage.getItem('username'),
@@ -46,12 +40,42 @@ const Home = ()=>{
 
 
   return (
-    <div className={windowSize(height, width)}>
-        <section className='home-left'>
-          <WelcomeUser />
-          <CreateCard />
-        </section>
-        <CardList/>
+    <div className='home'>
+      <Media queries={{
+        small: "(max-width: 480px)",
+        medium: "(min-width: 481px) and (max-width: 768px)",
+        large: "(min-width: 769px)"
+      }}>
+        {matches => (
+          <>
+            {matches.small && <p>I am small!</p>}
+            {matches.medium &&
+            <>
+              {!small &&
+                <Menu />}
+              <Logout />
+              <CardList/>
+              {small &&
+              <>
+                <section className='home-left'>
+                  <WelcomeUser/>
+                  <CreateCard/>
+                </section>
+              </>}
+            </>
+            }
+            {matches.large &&
+            <>
+              <section className='home-left'>
+                <WelcomeUser/>
+                <CreateCard/>
+              </section>
+              <CardList/>
+            </>
+            }
+          </>
+        )}
+      </Media>
       {hidden && <Card />}
       {edit && <Edit />}
     </div>

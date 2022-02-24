@@ -8,6 +8,7 @@ import showCardReducer from './showCard';
 import sitesReducer from './sites';
 import keyReducer from './key';
 import isLoadingReducer from './isLoading';
+import smallScreenReducer from "./smallScreen";
 
 export default configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export default configureStore({
     showCard: showCardReducer,
     sites: sitesReducer,
     key: keyReducer,
-    isLoading: isLoadingReducer
+    isLoading: isLoadingReducer,
+    smallScreen: smallScreenReducer
   }
 })
