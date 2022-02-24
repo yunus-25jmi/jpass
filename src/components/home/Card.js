@@ -67,7 +67,7 @@ const Card = ()=>{
 
   return (
     <div className='card-page'>
-        <div className='card'>
+      <div className='card'>
         <FontAwesomeIcon
           className='card-exit'
           onClick={() => dispatch(switchHidden(false))} icon={faCircleXmark}/>

@@ -10,8 +10,11 @@ export const counterSlice = createSlice({
     switchLoading: (state, action)=>{
       state.isLoading = !state.isLoading;
     },
+    switchCardLoading: (state, action)=>{
+      state.cardLoading = !state.cardLoading;
+    }
   }
 })
 
-export const { switchLoading } = counterSlice.actions;
+export const { switchLoading, switchCardLoading } = counterSlice.actions;
 export default counterSlice.reducer;

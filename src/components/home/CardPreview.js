@@ -8,12 +8,9 @@ const URL = 'http://localhost:5432/api'
 
 const CardPreview = ({name})=>{
   const dispatch = useDispatch();
-  const card = useSelector(state => state.card)
 
   const openCard = async (e)=>{
     e.preventDefault();
-    // ** shows the card **
-    dispatch(switchHidden(true))
 
     // ** body to pass into axios **
     let body = {
@@ -30,6 +27,9 @@ const CardPreview = ({name})=>{
         dispatch(changeSiteUsername(res.data.site_username))
         dispatch(changeNotes(res.data.notes))
       }).catch(err => console.log(err));
+
+    // ** shows the card **
+    dispatch(switchHidden(true))
   }
 
   return (

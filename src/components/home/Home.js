@@ -6,8 +6,9 @@ import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import {updateSites} from '../../redux/sites';
-import cardLoading, {switchLoading} from "../../redux/isLoading";
+import {switchLoading} from "../../redux/isLoading";
 import Edit from "./Edit";
+import useWindowDimensions from "../useWindowDimensions";
 
 const URL = 'http://localhost:5432/api'
 
@@ -16,6 +17,17 @@ const Home = ()=>{
   const {username} = useSelector(state => state.user);
   const {siteName} = useSelector(state => state.card);
   const dispatch = useDispatch();
+  const {height, width} = useWindowDimensions();
+
+  const windowSize = (h, w)=> {
+    if(h >= 481 && h <= 768){
+      return 'home-medium'
+    } else if(h >= 769){
+      return 'home'
+    } else if(h < 480){
+      return 'home-small'
+    }
+  }
 
   const body = {
     username: username || localStorage.getItem('username'),
@@ -34,13 +46,13 @@ const Home = ()=>{
 
 
   return (
-    <div className='home'>
+    <div className={windowSize(height, width)}>
         <section className='home-left'>
           <WelcomeUser />
           <CreateCard />
         </section>
         <CardList/>
-      {cardLoading && hidden && <Card />}
+      {hidden && <Card />}
       {edit && <Edit />}
     </div>
   )

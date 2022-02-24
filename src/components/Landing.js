@@ -12,7 +12,7 @@ const Landing = ()=>{
   return (
     <div className='landing'>
       {/*       **Loading rings**       */}
-      {isLoading && <div className="lds-ring">
+      {isLoading && <div className="lds-ring lds-ring-land">
         <div></div>
         <div></div>
         <div></div>

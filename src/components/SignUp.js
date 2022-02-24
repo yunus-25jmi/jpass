@@ -13,7 +13,6 @@ const URL = 'http://localhost:5432/api'
 
 const SignUp = ()=>{
   const dispatch = useDispatch();
-  const {isLoading} = useSelector(state => state.isLoading);
 
   // ** redux toolkit stuff **
   const user = useSelector(state => state.user);
