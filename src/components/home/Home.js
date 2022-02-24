@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import WelcomeUser from "./WelcomeUser";
 import CreateCard from "./CreateCard";
 import CardList from "./CardList";
-import './home.css'
 import Card from "./Card";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
