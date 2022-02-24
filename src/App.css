@@ -672,4 +672,11 @@ html {
         top: 2%;
         right: 50%;
     }
+    .title-container{
+        width: 450px;
+        height: 400px;
+    }
+    .title{
+        font-size: 175px;
+    }
 }
