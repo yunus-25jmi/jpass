@@ -51,6 +51,7 @@ const Login = ()=>{
           }
         }).catch(err => {
           alert(err.response.data)
+          dispatch(switchLoading())
           console.log(err)
       });
 
