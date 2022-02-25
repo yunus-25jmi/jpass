@@ -42,13 +42,11 @@ const Home = ()=>{
   return (
     <div className='home'>
       <Media queries={{
-        small: "(max-width: 480px)",
-        medium: "(min-width: 481px) and (max-width: 768px)",
+        medium: "(max-width: 768px)",
         large: "(min-width: 769px)"
       }}>
         {matches => (
           <>
-            {matches.small && <p>I am small!</p>}
             {matches.medium &&
             <>
               {!small &&
