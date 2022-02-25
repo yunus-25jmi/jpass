@@ -680,3 +680,49 @@ html {
         font-size: 175px;
     }
 }
+
+@media (max-width: 480px){
+    .home-cards{
+        width: 300px;
+        height: 90%;
+        margin-top: 25%;
+    }
+    .home{
+        width: 300px;
+    }
+    .preview{
+        width: 280px;
+    }
+    .menu-btn-container {
+        right: -10%;
+    }
+    .create-container{
+        width: 300px;
+    }
+    .home-welcome{
+        width: 300px;
+    }
+    .create-card-title{
+        text-align: center;
+    }
+    .card{
+        width: 320px;
+    }
+    .title-container{
+        width: 300px;
+        height: 400px;
+    }
+    .title-btn-container{
+        flex-direction: column;
+    }
+    .title{
+        font-size: 120px;
+    }
+    .login-container, .signup-container {
+        width: 300px;
+    }
+    .signup-form{
+        gap: 0;
+        justify-content: center;
+    }
+}
